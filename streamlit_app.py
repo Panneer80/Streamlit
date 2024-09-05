@@ -44,32 +44,38 @@ def main():
 
     logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
 
-    home = st.Page(
-        "modules/home_page.py",
-        title="Home",
-        icon=":material/help:",
-        url_path="home", 
+    task_manager = st.Page(
+        "modules/task_manager/task_manager.py",
+        title="Task Manager",
+        icon=":material/task:",
+        url_path="home"
+       
+    )
+
+    profile = st.Page(
+        "modules/about_me.py",
+        title="Profile",
+        icon=":material/person_add:",
+        url_path="admin", 
         default=True
     )
 
-    admin = st.Page(
-        "modules/admin_page.py",
-        title="Admin",
-        icon=":material/person_add:",
-        url_path="admin", 
-        default=(role == "Admin"),
-    )
-
     page_dict = {}
-    if st.session_state.role in ["admin"]:
-        page_dict["Admin"] = [admin]
-    if st.session_state.role in ["user"]:
-        page_dict["Home"] = [home]
+    page_dict["About Me"] = [profile]
+    page_dict["My Apps"] = [task_manager]
 
-    if len(page_dict) > 0:
-        pg = st.navigation(page_dict | {"Log out": [logout_page]}  )
-    else:
-        pg = st.navigation([st.Page(login)])
+    # page_dict = {}
+    # if st.session_state.role in ["admin"]:
+    #     page_dict["Admin"] = [admin]
+    # if st.session_state.role in ["user"]:
+    #     page_dict["Home"] = [home]
+
+    pg = st.navigation(page_dict )
+    # if len(page_dict) > 0:
+    #     pg = st.navigation(page_dict | {"Log out": [logout_page]}  )
+    # else:
+    #     pg = st.navigation([st.Page(login)])
+        
 
     pg.run()
 

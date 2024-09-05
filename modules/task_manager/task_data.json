@@ -1,0 +1,23 @@
+[
+    {
+"id": 101,
+"title": "Create a process docuemnt for user onboarding",
+"description": "Explain the user onboarding process in a detailed document and share it with stakeholders",
+"due date": "2024-09-30",
+"assigned to": "Leo Smith"
+},
+{
+    "id": 102,
+    "title": "Arrage a client meeting to demo the project",
+    "description": "Prepare the slides and arrage a client meeting to demo the project",
+    "due date": "2024-09-25",
+    "assigned to": "Rui Almeida"
+    },
+    {
+        "id": 103,
+        "title": "Renew licenses for the finance application",
+        "description": "Identify the license requirements and renew it",
+        "due date": "2024-10-30",
+        "assigned to": "Richard Antonik"
+        }
+]
