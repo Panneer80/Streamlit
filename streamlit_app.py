@@ -5,7 +5,7 @@ import streamlit as st
 from learning import basics, widgets_tut, media, plotting, file_process,file_download
 
 st.set_page_config(page_title="Developer: Panneer Selvam R 🛠️", 
-                   page_icon="🪔",
+                   page_icon="🐺",
                    initial_sidebar_state='auto',
                 layout='centered'
                    )
@@ -60,6 +60,7 @@ def main():
         default=True
     )
 
+    # st.logo("🐺")
     page_dict = {}
     page_dict["About Me"] = [profile]
     page_dict["My Apps"] = [task_manager]
