@@ -1,21 +1,80 @@
+# import core
 import streamlit as st
 
-st.title("Hello World")
-with st.sidebar:
-    st.header("Side Heading")
-    st.write("some random text")
-tab1, tab2 = st.tabs(["Tab 1", "Tab2"])
-with tab1:
-    col1, col2 = st.columns(2)
-    with col1:
-        st.radio("Select one:", [1, 2])
+#import dependent packages
+from learning import basics, widgets_tut, media, plotting, file_process,file_download
 
-with tab2:
-    expand = st.expander("My label", icon=":material/info:")
-    expand.write("Inside the expander.")
-    pop = st.popover("Button label")
-    pop.checkbox("Show all")
+st.set_page_config(page_title="Developer: Panneer Selvam R 🛠️", 
+                   page_icon="🪔",
+                   initial_sidebar_state='auto',
+                layout='centered'
+                   )
 
+def main():
+    # basics.basics_text()
+    # widgets_tut.widget_t()
+    # media.media_t()
+    #plotting.charts_t()
+    #file_process.file_manager()
+    # file_download.main()
+    # st.title("Welcome!")
+
+    if "role" not in st.session_state:
+        st.session_state.role = None
+
+    ROLES = [None, "user", "admin"]
+
+
+    def login():
+
+        st.header("Log in")
+        role = st.selectbox("Choose your role", ROLES)
+
+        if st.button("Log in"):
+            st.session_state.role = role
+            st.rerun()
+
+
+    def logout():
+        st.session_state.role = None
+        st.rerun()
+
+
+    role = st.session_state.role
+
+    logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
+
+    home = st.Page(
+        "modules/home_page.py",
+        title="Home",
+        icon=":material/help:",
+        url_path="home", 
+        default=True
+    )
+
+    admin = st.Page(
+        "modules/admin_page.py",
+        title="Admin",
+        icon=":material/person_add:",
+        url_path="admin", 
+        default=(role == "Admin"),
+    )
+
+    page_dict = {}
+    if st.session_state.role in ["admin"]:
+        page_dict["Admin"] = [admin]
+    if st.session_state.role in ["user"]:
+        page_dict["Home"] = [home]
+
+    if len(page_dict) > 0:
+        pg = st.navigation(page_dict | {"Log out": [logout_page]}  )
+    else:
+        pg = st.navigation([st.Page(login)])
+
+    pg.run()
+
+if __name__ == '__main__':
+    main()
 
 
 
