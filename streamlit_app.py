@@ -36,6 +36,15 @@ def main():
 
     logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
 
+    civil_boq = st.Page(
+        "modules/civil_boq/landing.py",
+        title="Data Entry",
+        icon=":material/task:",
+        url_path="boq",
+        default=True
+       
+    )
+
     task_manager = st.Page(
         "modules/task_manager/task_manager.py",
         title="Task Manager",
@@ -49,13 +58,14 @@ def main():
         title="Profile",
         icon=":material/person_add:",
         url_path="admin", 
-        default=True
+        default=False
     )
 
     # st.logo("modules/about_me/Photo_Panneer.jpg")
     page_dict = {}
+
+    page_dict["Civil BOQ"] = [civil_boq, task_manager]
     page_dict["About Me"] = [profile]
-    page_dict["My Apps"] = [task_manager]
     pg = st.navigation(page_dict )
     pg.run()
 

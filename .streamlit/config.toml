@@ -2,7 +2,7 @@
 
 base="light"
 primaryColor="#16423C"
-secondaryBackgroundColor="#FCDE70"
+#secondaryBackgroundColor="#EFDDB8"
 textColor="#16423C"
 
 #primaryColor="#F63366"
@@ -10,3 +10,7 @@ backgroundColor="#FFFFFF"
 #secondaryBackgroundColor="#F0F2F6"
 #textColor="#262730"
 font="sans serif"
+
+#16423C
+#E2C27B
+#EFDDB8
