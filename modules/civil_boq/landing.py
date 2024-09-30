@@ -5,7 +5,7 @@ def local_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-local_css("modules\\civil_boq\\style.css")
+local_css("modules/civil_boq/style.css")
 
 st.subheader("Bill Of Quantity (BOQ) | Data entry")
 
