@@ -7,7 +7,7 @@ from learning import basics, widgets_tut, media, plotting, file_process,file_dow
 st.set_page_config(page_title="Developer: Panneer Selvam R", 
                    page_icon="🐺",
                    initial_sidebar_state='auto',
-                layout='centered'
+                layout='wide'
                    )
 
 def main():
