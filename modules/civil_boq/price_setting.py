@@ -14,4 +14,4 @@ def set_price(st):
             with price_col3:    
                 psand_price_per_ton = st.number_input("P Sand / Ton", value=10000)
                 gravel_price_per_ton = st.number_input("Gravel / Ton", value=10000)
-            price_from.form_submit_button(label="Save")
+            price_from.form_submit_button(label="Set Price")

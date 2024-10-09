@@ -8,7 +8,7 @@ from modules.civil_boq.concrete_work import concrete_work
 st.set_page_config(page_title="Civil BOQ", 
                    page_icon="🐺",
                    initial_sidebar_state='auto',
-                layout='centered'
+                layout='wide'
                    )
 
 def main():
@@ -45,12 +45,17 @@ def main():
 
 
     local_css("modules/civil_boq/style.css")
+    st.sidebar.write("Welcome")
     st.subheader("Bill Of Quantity (BOQ) | Data entry")
+    st.divider()
     set_price(st)
     concrete_work(st)
     masonary_work(st)
     plastering_work(st)
-
+    st.divider()
+    generate, print, clear, finalize = st.columns(4)
+    with finalize:
+        st.button(label="Generate BOQ")
     # civil_boq = st.Page(
     #     "modules/civil_boq/landing.py",
     #     title="Data Entry",

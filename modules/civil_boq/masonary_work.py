@@ -16,15 +16,16 @@ def masonary_work(st):
     
             with Walls:        
                 selected_Walls_count = st.number_input("Wall(s)",  min_value=0, max_value=25, key="m_selected_walls_count")
-            masonary_from.form_submit_button(label="Save")
+            masonary_from.form_submit_button(label="Update")
             def display_input_row(item, index):
-                    length, width, height = masonary_expander.columns(3)
+                    length, width, height = masonary_from.columns(3)
                     length.number_input(f'{index+1} {item} Length(Feet)', min_value=0.0, key=f'{index+1}_{item}_length')
                     width.number_input(f'{index+1} {item} Thickness/Width(Feet)', min_value=0.0, key=f'{index+1}_{item}_width')
                     height.number_input(f'{index+1} {item} Height(Feet)', min_value=0.0, key=f'{index+1}_{item}_height')
 
             def display_masonary_save_button():
-                    masonary_expander.button(label="Save", key="masonary_final_save_btn")
+                #     masonary_expander.button(label="Save", key="masonary_final_save_btn")
+                    masonary_from.form_submit_button(label="Update ")
             if selected_Walls_count > 0:
                     for i in range(selected_Walls_count):
                             display_input_row("Wall",i)

@@ -1,3 +1,5 @@
+import pandas as pd
+from modules.civil_boq.create_df import create_df
 
 def concrete_work(st):
     concrete_expander =  st.expander("Concrete Work", expanded= False, icon=":material/currency_rupee_circle:")
@@ -9,44 +11,62 @@ def concrete_work(st):
             concrete_expander_container = concrete_from.container(border=True)    
             Footing, Column, Beam, Wall_Footing  = concrete_expander_container.columns(4)    
             Floor_Slab, Stairs, future1, future2 = concrete_expander_container.columns(4)   
-            with Footing:        
-                selected_Footing_count = st.number_input("Footing",  min_value=0, max_value=25,)
+            # with Footing:        
+                # selected_Footing_count = st.number_input("Footing",  min_value=0, max_value=100,)
+            selected_Footing_count = Footing.number_input("Footing",  min_value=0, max_value=100,)    
             with Column:        
-                selected_Column_count = st.number_input("Column",  min_value=0, max_value=25,)
+                selected_Column_count = st.number_input("Column",  min_value=0, max_value=100,)
             with Beam:        
-                selected_Beam_count = st.number_input("Beam",  min_value=0, max_value=25,)
+                selected_Beam_count = st.number_input("Beam",  min_value=0, max_value=100,)
             with Wall_Footing:        
-                selected_Wall_Footing_count = st.number_input("Wall_Footing",  min_value=0, max_value=25,)
+                selected_Wall_Footing_count = st.number_input("Wall Footing",  min_value=0, max_value=25,)
             with Floor_Slab:        
-                selected_Floor_Slab_count = st.number_input("Floor_Slab",  min_value=0, max_value=25,)
+                selected_Floor_Slab_count = st.number_input("Floor Slab",  min_value=0, max_value=25,)
             with Stairs:        
                 selected_Stairs_count = st.number_input("Stairs",  min_value=0, max_value=25,)
-            concrete_from.form_submit_button(label="Save")
-            def display_input_row(item, index):
-                    concrete_length, concrete_width, concrete_height = concrete_from.columns(3)
-                    concrete_length.number_input(f'{index+1} {item} Length(Feet)', min_value=1.0)
-                    concrete_width.number_input(f'{index+1} {item} Width(Feet)', min_value=1.0)
-                    concrete_height.number_input(f'{index+1} {item} Height(Feet)', min_value=1.0)
+            def display_header_row():
+                cancrete_size_lable_container = concrete_from.container(border=True)
+                item_column, length_column, width_column, height_column = cancrete_size_lable_container.columns(4)
+                item_column.write("Item")
+                length_column.write("Length")
+                width_column.write("Width")
+                height_column.write("Height")
+            concrete_from.form_submit_button(label="Update")
+            
+
+            footing_df = pd.DataFrame()
+            column_df = pd.DataFrame()
+            beam_df = pd.DataFrame()
+            wall_footing_df = pd.DataFrame()
+            floor_slab_df = pd.DataFrame()
+            stairs_df = pd.DataFrame()
+            concrete_work_df = pd.DataFrame()
+
 
             if selected_Footing_count > 0:
-                    for i in range(selected_Footing_count):
-                            display_input_row("Footing",i)
+                    footing_df = create_df(item="Footing", count=selected_Footing_count)                
             if selected_Column_count > 0:
-                    for i in range(selected_Column_count):
-                            display_input_row("Column",i)
+                    column_df = create_df(item="Column", count=selected_Column_count)                
             if selected_Beam_count > 0:
-                    for i in range(selected_Beam_count):
-                            display_input_row("Beam",i)
+                    beam_df = create_df(item="Beam", count=selected_Beam_count)
             if selected_Wall_Footing_count > 0:
-                    for i in range(selected_Wall_Footing_count):
-                            display_input_row("Wall_Footing",i)
+                    wall_footing_df = create_df(item="Wall Footing", count=selected_Wall_Footing_count)
             if selected_Floor_Slab_count > 0:
-                    for i in range(selected_Floor_Slab_count):
-                            display_input_row("Floor_Slab",i)
+                    floor_slab_df = create_df(item="Floor Slab", count=selected_Floor_Slab_count)
             if selected_Stairs_count > 0:
-                    for i in range(selected_Stairs_count):
-                            display_input_row("Stairs",i)
-            def display_concrete_save_button():
-                    concrete_expander.button(label="Save", key="concrete_final_save_btn")
+                    stairs_df = create_df(item="Stairs", count=selected_Stairs_count)
+
+            def store_edited_df():  
+                st.session_state["concrete_work_df"] = concrete_work_df     
+                # concrete_from.write(st.session_state)
+
+
+                    
+
             if selected_Footing_count | selected_Column_count | selected_Beam_count | selected_Wall_Footing_count | selected_Floor_Slab_count | selected_Stairs_count > 0:
-                    display_concrete_save_button()
+                #     display_header_row()
+                    final_df = pd.concat([footing_df,column_df,beam_df,wall_footing_df,floor_slab_df,stairs_df],ignore_index=True)
+                    final_df.set_index("Item",inplace=True)
+                    concrete_work_df = concrete_from.data_editor(final_df, use_container_width=True)
+                    concrete_from.form_submit_button(label="Save")
+                    store_edited_df()

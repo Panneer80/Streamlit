@@ -17,10 +17,10 @@ def plastering_work(st):
                         selected_Walls_count = st.number_input("Wall(s)",  min_value=st.session_state["m_selected_walls_count"], max_value=25,)
                 else:
                         selected_Walls_count = st.number_input("Wall(s)",  min_value=0, max_value=25,)
-            plastering_from.form_submit_button(label="Save")
+            plastering_from.form_submit_button(label="Update")
 
             def display_input_row(item, index):
-                    length,  height = plastering_expander.columns(2)
+                    length,  height = plastering_from.columns(2)
                     if f"{index+1}_{item}_length" in st.session_state:
                         length.number_input(f'{index+1} {item} Length(Feet)', min_value=st.session_state[f"{index+1}_{item}_length"])
                     else:
@@ -34,7 +34,7 @@ def plastering_work(st):
                     else:
                           height.number_input(f'{index+1} {item} Height(Feet)', min_value=0.0)
             def display_plastering_save_button():
-                    plastering_expander.button(label="Save", key="plastering_final_save_btn")
+                    plastering_expander.button(label="Update", key="plastering_final_save_btn")
         #     st.write(st.session_state)
               
             if selected_Walls_count > 0:
