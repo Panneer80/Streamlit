@@ -44,54 +44,49 @@ def main():
     def local_css(file_name):
         with open(file_name) as f:
                 st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-
     local_css("modules/civil_boq/style.css")
-    st.sidebar.write("Welcome")
-    st.subheader("Bill Of Quantity (BOQ) | Data entry")
-    st.divider()
-    set_price(st)
-    concrete_work(st)
-    masonary_work(st)
-    door_window_work(st)
-    tiles_work(st)
-    # plastering_work(st)
-    st.divider()
-    generate, print, clear, finalize = st.columns(4)
-    with finalize:
-        st.button(label="Generate BOQ")
-    # civil_boq = st.Page(
-    #     "modules/civil_boq/landing.py",
-    #     title="Data Entry",
-    #     icon=":material/task:",
-    #     url_path="boq",
-    #     default=True
+
+
+    welcome_page = st.Page(
+        "modules/civil_boq/welcome_page.py",
+        title="Home",
+        icon=":material/task:",
+        url_path="home",
+        default=True
        
-    # )
+    )
 
-    # task_manager = st.Page(
-    #     "modules/task_manager/task_manager.py",
-    #     title="Task Manager",
-    #     icon=":material/task:",
-    #     url_path="home"
+    boq_generator = st.Page(
+        "modules/civil_boq/boq_page.py",
+        title="Generate BOQ",
+        icon=":material/task:",
+        url_path="boq",
+        default=False
        
-    # )
+    )
 
-    # profile = st.Page(
-    #     "modules/about_me/about_me.py",
-    #     title="Profile",
-    #     icon=":material/person_add:",
-    #     url_path="admin", 
-    #     default=False
-    # )
+    your_boqs = st.Page(
+        "modules/task_manager/task_manager.py",
+        title="Your BOQ's",
+        icon=":material/person_add:",
+        url_path="saved", 
+        default=False
+    )
 
-    # # st.logo("modules/about_me/Photo_Panneer.jpg")
-    # page_dict = {}
+    about_me = st.Page(
+        "modules/about_me/about_me.py",
+        title="About me",
+        icon=":material/person_add:",
+        url_path="about_me", 
+        default=False
+    )
 
-    # page_dict["Civil BOQ"] = [civil_boq]
-    # #page_dict["About Me"] = [profile]
-    # pg = st.navigation(page_dict )
-    # pg.run()
+    page_dict = {}
+
+    page_dict["BOQ Generator"] = [welcome_page,boq_generator, your_boqs]
+    page_dict["Developer"] = [about_me]
+    pg = st.navigation(page_dict )
+    pg.run()
 
 
 
