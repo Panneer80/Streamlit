@@ -10,14 +10,14 @@ def create_doors_df(df_name, item="Door", count=1, ):
                 for i in range(count):
                         item_header_list.append(f"{item} {i+1}")
                         if df_name not in st.session_state:
-                            item_use_list.append("Main Door")     
+                            item_use_list.append("Main door")     
                             item_type_list.append("Steel")
                             item_spec_list.append("4' x 7'")  
                             item_price_list.append("20000")                
                         else:
                             sess_df = st.session_state[df_name]
-                            if f"{item} {i+1}" in sess_df["Useage"].keys():
-                                item_use_list.append(sess_df["Useage"][f"{item} {i+1}"])  
+                            if f"{item} {i+1}" in sess_df["Purpose"].keys():
+                                item_use_list.append(sess_df["Purpose"][f"{item} {i+1}"])  
                             else:
                                   item_use_list.append("Main Door")     
                             if f"{item} {i+1}" in sess_df["Type"].keys():
@@ -36,7 +36,7 @@ def create_doors_df(df_name, item="Door", count=1, ):
                           
 
                 df = pd.DataFrame({"Item": item_header_list,
-                                  "Useage": item_use_list,
+                                  "Purpose": item_use_list,
                                   "Type": item_type_list,
                                   "Size": item_spec_list,
                                   "Price": item_price_list

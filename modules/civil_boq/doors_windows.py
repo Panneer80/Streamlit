@@ -9,8 +9,9 @@ def door_window_work(st):
     if door_window_expander:
         door_window_form = door_window_expander.form(key="door_window_form")
         door_window_form_container = door_window_form.container(border=True)
-        door_name_list = ["Main door","Toilet door", "Bedroom door", "Utility door", "Balcony door", "Head room door", "Pooja door", "other door"]
+        door_name_list = ["Main door","Kitchen door","Study room","Toilet door", "Bedroom door", "Utility door", "Balcony door", "Head room door", "Pooja door", "Other"]
         door_type_list = ["PVC", "UPVC", "Wooden", "MDF", "Aluminium", "Glass", "Flush", "Steel"]
+        rooms_list = ["Living Room","Bed Room","Kitchen","Dining","Toilet","Balcony","Study Room","Utility Room", "Theatre Room", "Head Room", "Other"]
         add_doors, add_windows, future2, future3 = door_window_form.columns(4)
         selected_doors_count = add_doors.number_input("Add Doors", min_value=0, max_value=100)
         selected_windows_count = add_windows.number_input("Add Windows", min_value=0, max_value=100)
@@ -29,7 +30,23 @@ def door_window_work(st):
                         # display_input_row("Wall",i)
                 final_doors_df = create_doors_df(df_name="door_work_df", item="Door", count=selected_doors_count)
             final_doors_df.set_index("Item",inplace=True)
-            door_work_df = door_window_form.data_editor(final_doors_df, use_container_width=True)
+            door_work_df = door_window_form.data_editor(final_doors_df, use_container_width=True, column_config={
+                    "Purpose": st.column_config.SelectboxColumn(
+                        "Purpose",
+                        help="select purpose",
+                        width="medium",
+                        options=door_name_list,
+                        required=True,
+                        
+                    ),
+                    "Type": st.column_config.SelectboxColumn(
+                        "Type",
+                        help="select meterial",
+                        width="medium",
+                        options=door_type_list,
+                        required=True,            ),      
+                       
+                },)
             # door_window_form.form_submit_button(label="Save ")
             store_doors_edited_df()        
 
@@ -38,6 +55,22 @@ def door_window_work(st):
                         # display_input_row("Wall",i)
                 final_windows_df = create_windows_df(df_name="window_work_df", item="Window", count=selected_windows_count)
             final_windows_df.set_index("Item",inplace=True)
-            window_work_df = door_window_form.data_editor(final_windows_df, use_container_width=True)
+            window_work_df = door_window_form.data_editor(final_windows_df, use_container_width=True, column_config={
+                    "Room": st.column_config.SelectboxColumn(
+                        "Room",
+                        help="select room",
+                        width="medium",
+                        options=rooms_list,
+                        required=True,
+                        
+                    ),
+                    "Type": st.column_config.SelectboxColumn(
+                        "Type",
+                        help="select meterial",
+                        width="medium",
+                        options=door_type_list,
+                        required=True,            ),      
+                       
+                },)
             door_window_form.form_submit_button(label="Save ")
             store_windows_edited_df()   

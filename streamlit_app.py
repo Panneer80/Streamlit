@@ -1,6 +1,7 @@
 import streamlit as st
 
 # from modules.civil_boq.plastering_work import plastering_work
+from modules.civil_boq.tiles_work import tiles_work
 from modules.civil_boq.doors_windows import door_window_work
 from modules.civil_boq.masonary_work import masonary_work
 from modules.civil_boq.price_setting import set_price
@@ -53,6 +54,7 @@ def main():
     concrete_work(st)
     masonary_work(st)
     door_window_work(st)
+    tiles_work(st)
     # plastering_work(st)
     st.divider()
     generate, print, clear, finalize = st.columns(4)
