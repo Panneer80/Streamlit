@@ -1,7 +1,7 @@
 import pandas as pd
 
-from modules.civil_boq.create_doors_df import create_doors_df
-from modules.civil_boq.create_widows_df import create_windows_df
+from modules.civil_boq.page_elements.create_doors_df import create_doors_df
+from modules.civil_boq.page_elements.create_widows_df import create_windows_df
 
 
 def door_window_work(st):

@@ -4,7 +4,7 @@ import streamlit as st
 st.header("Welcome to BOQ Generator")
 st.markdown("##### Your Fast-Track Solution to Accurate Construction Estimates")
 if st.button("Generate Now!", type="primary", key="generate_btn_page_start"):
-    st.switch_page("modules/civil_boq/boq_page.py")
+    st.switch_page("modules/civil_boq/pages/boq_page.py")
 
 st.html(
 """
@@ -54,4 +54,4 @@ st.html("""
 )
 
 if st.button("Generate Now!", type="primary", key="generate_btn_page_end"):
-    st.switch_page("modules/civil_boq/boq_page.py")
+    st.switch_page("modules/civil_boq/pages/boq_page.py")

@@ -1,12 +1,5 @@
 import streamlit as st
 
-# from modules.civil_boq.plastering_work import plastering_work
-from modules.civil_boq.tiles_work import tiles_work
-from modules.civil_boq.doors_windows import door_window_work
-from modules.civil_boq.masonary_work import masonary_work
-from modules.civil_boq.price_setting import set_price
-from modules.civil_boq.concrete_work import concrete_work
-
 st.set_page_config(page_title="Civil BOQ", 
                    page_icon="🐺",
                    initial_sidebar_state='auto',
@@ -44,11 +37,11 @@ def main():
     def local_css(file_name):
         with open(file_name) as f:
                 st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    local_css("modules/civil_boq/style.css")
+    local_css("modules/civil_boq/css/style.css")
 
 
     welcome_page = st.Page(
-        "modules/civil_boq/welcome_page.py",
+        "modules/civil_boq/pages/welcome_page.py",
         title="Home",
         icon=":material/task:",
         url_path="home",
@@ -57,7 +50,7 @@ def main():
     )
 
     boq_generator = st.Page(
-        "modules/civil_boq/boq_page.py",
+        "modules/civil_boq/pages/boq_page.py",
         title="Generate BOQ",
         icon=":material/task:",
         url_path="boq",
@@ -81,9 +74,17 @@ def main():
         default=False
     )
 
+    print_pdf = st.Page(
+        "modules/civil_boq/pages/print_page.py",
+        title="Print BOQ",
+        icon=":material/person_add:",
+        url_path="print", 
+        default=False
+    )
+
     page_dict = {}
 
-    page_dict["BOQ Generator"] = [welcome_page,boq_generator, your_boqs]
+    page_dict["BOQ Generator"] = [welcome_page,boq_generator, print_pdf, your_boqs]
     page_dict["Developer"] = [about_me]
     pg = st.navigation(page_dict )
     pg.run()
