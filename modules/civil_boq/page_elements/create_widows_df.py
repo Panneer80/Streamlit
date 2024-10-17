@@ -12,7 +12,7 @@ def create_windows_df(df_name, item="Door", count=1, ):
                         if df_name not in st.session_state:
                             item_use_list.append("Bed Room")     
                             item_type_list.append("UPVC")
-                            item_spec_list.append("4' x 4'")  
+                            item_spec_list.append("4' x 7'")  
                             item_price_list.append("2000")                
                         else:
                             sess_df = st.session_state[df_name]
@@ -28,7 +28,7 @@ def create_windows_df(df_name, item="Door", count=1, ):
                             if f"{item} {i+1}" in sess_df["Size"].keys():
                                 item_spec_list.append(sess_df["Size"][f"{item} {i+1}"])    
                             else:
-                                item_spec_list.append("4' x 4'")      
+                                item_spec_list.append("4' x 7'")      
                             if f"{item} {i+1}" in sess_df["Price"].keys():
                                 item_price_list.append(sess_df["Price"][f"{item} {i+1}"]) 
                             else:

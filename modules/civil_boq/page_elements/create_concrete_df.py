@@ -3,6 +3,8 @@ import pandas as pd
 
 def create_df(df_name, item="Footing", count=1, ):
                 item_header_list = []
+                item_description_list = []
+                item_Grade_list = []
                 item_length_feet_list = []
                 item_length_inch_list = []
                 item_width_feet_list = []
@@ -15,6 +17,8 @@ def create_df(df_name, item="Footing", count=1, ):
                 for i in range(count):
                         item_header_list.append(f"{item} {i+1}")
                         if df_name not in st.session_state:
+                            item_description_list.append("")
+                            item_Grade_list.append("M20")
                             item_length_feet_list.append(1.0)     
                             item_length_inch_list.append(0.00)
                             item_width_feet_list.append(1.0)
@@ -26,6 +30,14 @@ def create_df(df_name, item="Footing", count=1, ):
                             item_ring_size.append("")
                         else:
                             sess_df = st.session_state[df_name]
+                            if f"{item} {i+1}" in sess_df["Description"].keys():
+                                item_description_list.append(sess_df["Description"][f"{item} {i+1}"])  
+                            else:
+                                  item_description_list.append("") 
+                            if f"{item} {i+1}" in sess_df["Grade"].keys():
+                                item_Grade_list.append(sess_df["Grade"][f"{item} {i+1}"])  
+                            else:
+                                  item_Grade_list.append("M20")                             
                             if f"{item} {i+1}" in sess_df["Length feet"].keys():
                                 item_length_feet_list.append(sess_df["Length feet"][f"{item} {i+1}"])  
                             else:
@@ -64,6 +76,8 @@ def create_df(df_name, item="Footing", count=1, ):
                                  item_ring_size.append("")                                                                                 
 
                 df = pd.DataFrame({"Item": item_header_list,
+                                  "Description": item_description_list,
+                                  "Grade": item_Grade_list,                                   
                                   "Length feet": item_length_feet_list,
                                   "Length inch": item_length_inch_list,
                                   "Width feet": item_width_feet_list,

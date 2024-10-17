@@ -15,6 +15,7 @@ def set_price():
                                   })
                 price_widgets_df.set_index("Item", inplace=True)
                 st.session_state.price_widgets_df = price_widgets_df
+                st.toast("Done!", icon="👍")
 
             def load_values(items_list):
                 for item in items_list:
@@ -33,4 +34,4 @@ def set_price():
             with price_col3:    
                 psand_price_per_ton = st.number_input("P Sand / Ton", min_value=1000, max_value=100000, step=500, key="psand_price_per_ton")
                 gravel_price_per_ton = st.number_input("Gravel / Ton", min_value=1000, max_value=100000, step=500, key="gravel_price_per_ton")
-            price_from.form_submit_button(label="Set Price", on_click=store_values)
+            price_from.form_submit_button(label="Set Price", on_click=store_values, type="secondary")

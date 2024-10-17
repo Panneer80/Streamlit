@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd        
 
-def create_df(df_name, item="Floor Tiles", count=1, ):
+def create_df(df_name, item, count ):
                 item_header_list = []
                 item_area_list = []
                 item_price_list = []
