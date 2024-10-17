@@ -10,7 +10,7 @@ selected_coloums = ['id','title','assigned to']
 
 #st.dataframe(list_data[selected_coloums].set_index('id'))
 
-conn = st.connection('modules/task_manager/tasks_db', type='sql')
+conn = st.connection('tasks_db', type='sql')
 
 # Insert some data with conn.session.
 with conn.session as s:
