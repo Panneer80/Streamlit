@@ -9,6 +9,7 @@ def masonary_work():
             masonary_from = masonary_expander.form(key="masonary_from")
             masonary_expander_container = masonary_from.container(border=True)    
             brick_size_list = ["9 x 4 x 3", "9.1 x 4.3 x 2.8", "12 x 8 x 6"]
+            wall_thickness_list = [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
             plasteringSize = ["12 mm", "15 mm", "18 mm"]
             cement_ratio_list = ["1:5", "1:4", "1:3", "1:2"]
             def store_values():
@@ -57,7 +58,14 @@ def masonary_work():
                         help="select Plastering thickness",
                         width="medium",
                         options=plasteringSize,
-                        required=False,          ),      
+                        required=True,          ),      
+                    "Wall thickness(inch)": st.column_config.SelectboxColumn(
+                        "Wall thickness(inch)",
+                        help="select wall thickness",
+                        width="medium",
+                        options=wall_thickness_list,
+                        
+                        required=True,          ),                          
                                                                
                     },)
                     if masonary_from.form_submit_button(label="Save "):

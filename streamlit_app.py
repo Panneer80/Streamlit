@@ -76,7 +76,7 @@ def main():
 
     print_pdf = st.Page(
         "modules/civil_boq/pages/print_page.py",
-        title="Print BOQ",
+        title="BOQ Summary",
         icon=":material/person_add:",
         url_path="print", 
         default=False

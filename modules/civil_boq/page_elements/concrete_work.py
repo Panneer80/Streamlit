@@ -7,7 +7,7 @@ def concrete_work():
     if concrete_expander:
             concrete_from = concrete_expander.form(key="concrete_widget_from")
             items_list = ["selected_Footing_count", "selected_Column_count","selected_Beam_count","selected_Wall_Footing_count","selected_Floor_Slab_count","selected_Stairs_count"]      
-            concrete_grade = ["M20", "M25", "M30", "M35"]
+            concrete_grade = ["M20", "M25"]
             def store_values():
                 values_list = [st.session_state.selected_Footing_count,st.session_state.selected_Column_count,st.session_state.selected_Beam_count,st.session_state.selected_Wall_Footing_count,st.session_state.selected_Floor_Slab_count,st.session_state.selected_Stairs_count ]
                 concrete_widgets_df = pd.DataFrame({"Item": items_list,
