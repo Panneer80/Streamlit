@@ -3,7 +3,7 @@ import streamlit as st
 from modules.civil_boq.page_elements.create_concrete_df import create_df
 
 def concrete_work():
-    concrete_expander =  st.expander("Concrete Work", expanded= False, icon=":material/currency_rupee_circle:")
+    concrete_expander =  st.expander("Concrete Work", expanded= False, icon=":material/star:")
     if concrete_expander:
             concrete_from = concrete_expander.form(key="concrete_widget_from")
             items_list = ["selected_Footing_count", "selected_Column_count","selected_Beam_count","selected_Wall_Footing_count","selected_Floor_Slab_count","selected_Stairs_count"]      

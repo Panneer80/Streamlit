@@ -5,7 +5,7 @@ from modules.civil_boq.page_elements.create_widows_df import create_windows_df
 
 
 def door_window_work():
-    door_window_expander =  st.expander("Doors & Windows", expanded= False, icon=":material/currency_rupee_circle:")
+    door_window_expander =  st.expander("Doors & Windows", expanded= False, icon=":material/star:")
     if door_window_expander:
         door_window_form = door_window_expander.form(key="door_window_form")
         door_window_form_container = door_window_form.container(border=True)

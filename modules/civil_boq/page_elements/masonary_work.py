@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 def masonary_work():
-    masonary_expander =  st.expander("Masonary Work & Plastering", expanded= False, icon=":material/currency_rupee_circle:")
+    masonary_expander =  st.expander("Masonary Work & Plastering", expanded= False, icon=":material/star:")
     if masonary_expander:
             masonary_from = masonary_expander.form(key="masonary_from")
             masonary_expander_container = masonary_from.container(border=True)    

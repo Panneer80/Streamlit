@@ -27,7 +27,7 @@ def column_steal_calc():
         s1 = rod_size_list[0]
         q1 = rod_quantity_list[0]                                            
         weight = ((int(s1)*int(s1)) /162.28) * (( rod_height / 3.281 ) * int(q1))
-        column_rod_weight[f"rod_{s1}_mm"] += weight
+        column_rod_weight[f"rod_{s1}_mm"] += round(weight,2)
         if len(rod_size_list) > 1:
             s2 = rod_size_list[1]
             if len(rod_quantity_list) > 1: 
@@ -35,18 +35,18 @@ def column_steal_calc():
             else:
                 q2 = q1                                           
             weight = ((int(s2)*int(s2)) /162.28) * (( rod_height / 3.281 ) * int(q2))
-            column_rod_weight[f"rod_{s2}_mm"] += weight
+            column_rod_weight[f"rod_{s2}_mm"] += round(weight,2)
         if len(ring_size) > 0:
             weight = ((int(ring_size)*int(ring_size)) /162.28) * (( total_ring_length / 3.281 ) * 1)
-            column_rod_weight[f"rod_{ring_size}_mm"] += weight
+            column_rod_weight[f"rod_{ring_size}_mm"] += round(weight,2)
   
     coloum_rod_keys = column_rod_weight.keys()
     coloum_rod_values = column_rod_weight.values()
     coulum_steel_data = {
-    "size": coloum_rod_keys,
-    "weight": coloum_rod_values
+    # "size": coloum_rod_keys,
+    "weight(KG)": coloum_rod_values
     }
-    column_steel_df = pd.DataFrame(data=coulum_steel_data)
+    column_steel_df = pd.DataFrame(data=coulum_steel_data, index=coloum_rod_keys)
     return column_steel_df
 
 def other_steal_calc():
@@ -78,7 +78,7 @@ def other_steal_calc():
         q1 = rod_quantity_list[0]                                            
         weight = ((int(s1)*int(s1)) /162.28) * (( rod_height / 3.281 ) * int(q1))
         # print(f"size:{s1}:length:{rod_height}:quantity:{q1}: weight: {weight}")
-        others_rod_weight[f"rod_{s1}_mm"] += weight
+        others_rod_weight[f"rod_{s1}_mm"] += round(weight,2)
         if len(rod_size_list) > 1:
             s2 = rod_size_list[1]
             if len(rod_quantity_list) > 1: 
@@ -86,17 +86,17 @@ def other_steal_calc():
             else:
                 q2 = q1                                           
             weight = ((int(s2)*int(s2)) /162.28) * (( rod_height / 3.281 ) * int(q2))
-            others_rod_weight[f"rod_{s2}_mm"] += weight
+            others_rod_weight[f"rod_{s2}_mm"] += round(weight,2)
         if len(ring_size) > 0 :
             weight = ((int(ring_size)*int(ring_size)) /162.28) * (( total_ring_length / 3.281 ) * 1)
-            others_rod_weight[f"rod_{ring_size}_mm"] += weight
+            others_rod_weight[f"rod_{ring_size}_mm"] += round(weight,2)
     other_rod_keys = others_rod_weight.keys()
     other_rod_values = others_rod_weight.values()
     other_steel_data = {
-    "size": other_rod_keys,
-    "weight": other_rod_values
+    # "size": other_rod_keys,
+    "weight(KG)": other_rod_values
     }
-    other_steel_df = pd.DataFrame(data=other_steel_data)
+    other_steel_df = pd.DataFrame(data=other_steel_data, index=other_rod_keys)
     return  other_steel_df
 
 def steel_calculator():
@@ -171,11 +171,21 @@ def concrete_calculator():
             m25_c_bags = amount_of_cement(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)
             m25_sand_ton = amount_of_sand(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)
             m25_aggre_ton = amount_of_aggregate(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)                     
-        total_c_bags = float(m20_c_bags + m25_c_bags)
-        total_sand_ton = float(m20_sand_ton + m25_sand_ton)
-        total_aggre_ton = float(m20_aggre_ton + m25_aggre_ton  )
+        total_c_bags = round(float(m20_c_bags + m25_c_bags),2)
+        total_sand_ton = round(float(m20_sand_ton + m25_sand_ton),2)
+        total_aggre_ton = round(float(m20_aggre_ton + m25_aggre_ton  ),2)
         steel_df = steel_calculator()
-    st.session_state.concreate_qtys = [total_c_bags,total_sand_ton, total_aggre_ton, steel_df] 
+    st.session_state.concreate_qtys = {"total_c_bags":total_c_bags,"total_sand_ton":total_sand_ton, "total_aggre_ton":total_aggre_ton, "steel_df": steel_df }
+    concrete_cement_cost = total_c_bags * (st.session_state.price_widgets_df.loc["cement_price_per_bag"].iloc[0])
+    concrete_sand_cost = total_sand_ton * (st.session_state.price_widgets_df.loc["msand_price_per_ton"].iloc[0])
+    concrete_aggregate_cost = total_aggre_ton * (st.session_state.price_widgets_df.loc["aggregate_price_per_ton"].iloc[0])
+    concrete_steal_cost = (steel_df["weight(KG)"].sum()) * (st.session_state.price_widgets_df.loc["steel_price_per_kg"].iloc[0])
+    st.session_state.concreate_costs = {"concrete_cement_cost": concrete_cement_cost,
+                                       "concrete_sand_cost": concrete_sand_cost,
+                                       "concrete_aggregate_cost": concrete_aggregate_cost,
+                                       "concrete_steal_cost": concrete_steal_cost
+                                       }
+
 
 
         

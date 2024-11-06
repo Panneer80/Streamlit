@@ -1,8 +1,18 @@
 import streamlit as st
-# from modules.civil_boq.calculations.concrete_calculator import concrete_calculator
-# from modules.civil_boq.calculations.concrete_calculator import steel_calculator
-# st.button(label="Calculate", on_click=steel_calculator)
+import pandas as pd
+
 st.write(st.session_state)
+
+site_prep_cost = (st.session_state.price_widgets_df.loc["jcb_work_per_hour"].iloc[0])  * ( st.session_state.concrete_widgets_df.loc["selected_Footing_count"].iloc[0]  / 2)
+concrete_work_cost = st.session_state.concreate_costs["concrete_cement_cost"] + st.session_state.concreate_costs["concrete_sand_cost"] + st.session_state.concreate_costs["concrete_aggregate_cost"] + st.session_state.concreate_costs["concrete_steal_cost"]
+masonary_work_cost = st.session_state.masonary_costs["masonary_bricks_cost"] + st.session_state.masonary_costs["masonary_cement_cost"] + st.session_state.masonary_costs["masonary_sand_cost"]
+windows_doors_cost = (st.session_state.door_work_df["Price"].astype(float)).sum()
+flooring_cost = st.session_state.total_tiles_cost
+painting_cost = st.session_state.painting_widgets_df.loc["painting_work_cost"].iloc[0]
+plumbing_cost = st.session_state.plumbing_widgets_df.loc["plumbing_work_cost"].iloc[0]
+electrical_cost = st.session_state.electrical_widgets_df.loc["electrical_work_cost"].iloc[0]
+grand_total = site_prep_cost + concrete_work_cost + masonary_work_cost + windows_doors_cost + flooring_cost + painting_cost + plumbing_cost + electrical_cost
+
 if "basic_details_df" in st.session_state:
 
     st.html(f"""
@@ -31,8 +41,7 @@ if "basic_details_df" in st.session_state:
         </style>
     </head>
     <body> 
-
-            
+          
             
         <h2>Bill Of Quantities</h2>
          <table id="basic_data">
@@ -60,6 +69,56 @@ if "basic_details_df" in st.session_state:
 
             </tbody>
         </table>        
+
+
+
+        <h2>Summary of Costs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Total Cost (INR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Site Preparation</td>
+                    <td>{site_prep_cost}</td>
+                </tr>
+                <tr>
+                    <td>Concrete Works</td>
+                    <td>{concrete_work_cost}</td>
+                </tr>
+                <tr>
+                    <td>Masonry and Plastering</td>
+                    <td>{ masonary_work_cost }</td>
+                </tr>
+                <tr>
+                    <td>Windows & Doors</td>
+                    <td>{windows_doors_cost}</td>
+                </tr>                
+                <tr>
+                    <td>Flooring and Tiling</td>
+                    <td>{flooring_cost}</td>
+                </tr>
+                <tr>
+                    <td>Painting and Finishing</td>
+                    <td>{painting_cost}</td>
+                </tr>
+                <tr>
+                    <td>Plumbing and Sanitary Works</td>
+                    <td>{plumbing_cost}</td>
+                </tr>
+                <tr>
+                    <td>Electrical Works</td>
+                    <td>{electrical_cost}</td>
+                </tr>
+                <tr>
+                    <td><strong>Grand Total</strong></td>
+                    <td><strong>{grand_total}</strong></td>
+                </tr>
+            </tbody>
+        </table>
 
         <table>
             <thead>
@@ -266,51 +325,7 @@ if "basic_details_df" in st.session_state:
                     <td>120.00</td>
                 </tr>
             </tbody>
-        </table>
-
-        <h2>Summary of Costs</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Total Cost (INR)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Site Preparation</td>
-                    <td>900.00</td>
-                </tr>
-                <tr>
-                    <td>Concrete Works</td>
-                    <td>6,325.00</td>
-                </tr>
-                <tr>
-                    <td>Masonry and Plastering</td>
-                    <td>3,180.00</td>
-                </tr>
-                <tr>
-                    <td>Flooring and Tiling</td>
-                    <td>1,025.00</td>
-                </tr>
-                <tr>
-                    <td>Painting and Finishing</td>
-                    <td>880.00</td>
-                </tr>
-                <tr>
-                    <td>Plumbing and Sanitary Works</td>
-                    <td>410.00</td>
-                </tr>
-                <tr>
-                    <td>Electrical Works</td>
-                    <td>280.00</td>
-                </tr>
-                <tr>
-                    <td><strong>Grand Total</strong></td>
-                    <td><strong>13,000.00</strong></td>
-                </tr>
-            </tbody>
-        </table>
+        </table>        
 
         <h3>Notes:</h3>
 

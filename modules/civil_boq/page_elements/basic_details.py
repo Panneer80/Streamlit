@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def basic_details():
-    container = st.expander(label="Basic Details", expanded=True)
+    container = st.expander(label="Basic Details", expanded=True, icon=":material/star:")
     basic_form = container.form("basic_info")
     col1, col2, col3= basic_form.columns(3)
     items_list = ["prepared_by","project_location","project_type","prapared_date","builtup_area"]

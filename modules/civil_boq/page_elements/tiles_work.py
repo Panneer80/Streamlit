@@ -5,7 +5,7 @@ from modules.civil_boq.page_elements.create_tiles_df import create_df
 
 
 def tiles_work():
-    tiles_work_expander =  st.expander("Tiles Work", expanded= False, icon=":material/currency_rupee_circle:")
+    tiles_work_expander =  st.expander("Tiles Work", expanded= False, icon=":material/star:")
     if tiles_work_expander:
         tiles_work_expander.markdown("##### Enter tiles area in square feet")
         tiles_work_form = tiles_work_expander.form(key="tiles_work_form")
