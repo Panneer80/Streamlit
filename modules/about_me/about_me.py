@@ -1,5 +1,5 @@
 import streamlit as st
-
+st.text("This website is developed and maintained by:")
 st.subheader("Panneer Selvam R", divider=True)
 st.markdown("##### Senior Python Developer & Automation Architect")
 
@@ -12,7 +12,7 @@ st.text("""
         over 70 task automations, providing technical leadership in complex projects.""")
 
 
-st.link_button(label="LinkedIn",url="https://www.linkedin.com/in/panneer80/")
+
 
 # st.markdown("###### Check my projects:")
 # st.page_link(label='Task Manager',page='modules/task_manager/task_manager.py',icon=":material/task:")   

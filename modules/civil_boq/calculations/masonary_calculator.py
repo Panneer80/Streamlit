@@ -94,3 +94,9 @@ def masonary_calculator():
                                         "masonary_cement_cost": masonary_cement_cost,
                                         "masonary_sand_cost": masonary_sand_cost
                                         }
+    else:
+        st.session_state.masonary_qtys = { "bricks":0, "cement":0, "sand":0 }
+        st.session_state.masonary_costs = {"masonary_bricks_cost": 0,
+                                        "masonary_cement_cost": 0,
+                                        "masonary_sand_cost": 0
+                                        }

@@ -31,10 +31,13 @@ other_work()
 
 st.divider()
 generate, print, clear, finalize = st.columns(4)
- 
+
+
 if st.button("Generate BOQ", type="primary", key="generate_btn_poq_page_end"):
     concrete_calculator()
     masonary_calculator()  
     tiles_cost_calculator()
+    # st.session_state.concrete_work_df.to_csv("C:\\work\\Streamlit_Code\\Streamlit\\test.csv")
     st.switch_page("modules/civil_boq/pages/print_page.py")
+
 

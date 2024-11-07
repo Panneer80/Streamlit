@@ -68,7 +68,7 @@ def main():
 
     about_me = st.Page(
         "modules/about_me/about_me.py",
-        title="About me",
+        title="About Developer",
         icon=":material/person_add:",
         url_path="about_me", 
         default=False
@@ -85,7 +85,7 @@ def main():
     page_dict = {}
 
     page_dict["BOQ Generator"] = [welcome_page,boq_generator, print_pdf, your_boqs]
-    page_dict["Developer"] = [about_me]
+    page_dict["Contact Us"] = [about_me]
     pg = st.navigation(page_dict )
     pg.run()
 

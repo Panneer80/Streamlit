@@ -6,10 +6,10 @@ def concrete_work():
     concrete_expander =  st.expander("Concrete Work", expanded= False, icon=":material/star:")
     if concrete_expander:
             concrete_from = concrete_expander.form(key="concrete_widget_from")
-            items_list = ["selected_Footing_count", "selected_Column_count","selected_Beam_count","selected_Wall_Footing_count","selected_Floor_Slab_count","selected_Stairs_count"]      
+            items_list = ["selected_Footing_count", "selected_Column_count","selected_Beam_count","selected_Wall_Footing_count","selected_Floor_Slab_count","selected_Stairs_count", "selected_Gravel_Qty"]      
             concrete_grade = ["M20", "M25"]
             def store_values():
-                values_list = [st.session_state.selected_Footing_count,st.session_state.selected_Column_count,st.session_state.selected_Beam_count,st.session_state.selected_Wall_Footing_count,st.session_state.selected_Floor_Slab_count,st.session_state.selected_Stairs_count ]
+                values_list = [st.session_state.selected_Footing_count,st.session_state.selected_Column_count,st.session_state.selected_Beam_count,st.session_state.selected_Wall_Footing_count,st.session_state.selected_Floor_Slab_count,st.session_state.selected_Stairs_count, st.session_state.selected_Gravel_Qty ]
                 concrete_widgets_df = pd.DataFrame({"Item": items_list,
                                   "Value": values_list,
                                   })
@@ -29,7 +29,7 @@ def concrete_work():
                 load_widget_values(items_list)  
            
             Footing, Column, Beam, Wall_Footing  = concrete_from.columns(4)    
-            Floor_Slab, Stairs, future1, future2 = concrete_from.columns(4) 
+            Floor_Slab, Stairs, Gravel, future2 = concrete_from.columns(4) 
 
             selected_Footing_count = Footing.number_input("Footing",  min_value=0, max_value=100,key="selected_Footing_count")     
             selected_Column_count = Column.number_input("Column",  min_value=0, max_value=100, key="selected_Column_count")  
@@ -37,7 +37,8 @@ def concrete_work():
             selected_Wall_Footing_count = Wall_Footing.number_input("Wall Footing",  min_value=0, max_value=25,key="selected_Wall_Footing_count")  
             selected_Floor_Slab_count = Floor_Slab.number_input("Floor Slab",  min_value=0, max_value=25,key="selected_Floor_Slab_count")  
             selected_Stairs_count = Stairs.number_input("Stairs",  min_value=0, max_value=25,key="selected_Stairs_count")
-            
+            selected_Gravel_Qty = Gravel.number_input("Required Gravel Qty(Ton)",  min_value=0, max_value=100000,key="selected_Gravel_Qty")            
+            store_values()
             concrete_from.form_submit_button(label="Update",on_click=store_values)
             
             footing_df = create_df(df_name="concrete_work_df",item="Footing", count=selected_Footing_count)                
