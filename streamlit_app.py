@@ -43,7 +43,7 @@ def main():
     welcome_page = st.Page(
         "modules/civil_boq/pages/welcome_page.py",
         title="Home",
-        icon=":material/task:",
+        icon=":material/home:",
         url_path="home",
         default=True
        
@@ -61,7 +61,7 @@ def main():
     your_boqs = st.Page(
         "modules/task_manager/task_manager.py",
         title="Your BOQ's",
-        icon=":material/person_add:",
+        icon=":material/list:",
         url_path="saved", 
         default=False
     )
@@ -69,23 +69,33 @@ def main():
     about_me = st.Page(
         "modules/about_me/about_me.py",
         title="About Developer",
-        icon=":material/person_add:",
+        icon=":material/person:",
         url_path="about_me", 
         default=False
     )
 
+    feedback = st.Page(
+        "modules/about_me/feedback.py",
+        title="Give Feedback",
+        icon=":material/feedback:",
+        url_path="feedback", 
+        default=False
+    )
+    
     print_pdf = st.Page(
         "modules/civil_boq/pages/print_page.py",
-        title="BOQ Summary",
-        icon=":material/person_add:",
+        title="Print/Download BOQ",
+        icon=":material/print:",
         url_path="print", 
         default=False
     )
 
     page_dict = {}
 
-    page_dict["BOQ Generator"] = [welcome_page,boq_generator, print_pdf, your_boqs]
-    page_dict["Contact Us"] = [about_me]
+    page_dict["BOQ Generator"] = [welcome_page,boq_generator,print_pdf,your_boqs]
+    page_dict["Contact Us"] = [about_me, feedback]
+    # if ("generate_pressed" in st.session_state):
+    # page_dict["BOQ Generator"] +=  [print_pdf ]
     pg = st.navigation(page_dict )
     pg.run()
 

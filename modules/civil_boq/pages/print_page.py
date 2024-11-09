@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
-
+from spire.doc import *
+from spire.doc.common import *
+import time
+import os
 # st.write(st.session_state)
 
-
-
-if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.session_state):
+if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.session_state) & ("concreate_costs" in st.session_state):
     jcb_cost = (st.session_state.price_widgets_df.loc["jcb_work_per_hour"].iloc[0])  * ( st.session_state.concrete_widgets_df.loc["selected_Footing_count"].iloc[0]  / 2)
     gravel_cost  =(st.session_state.price_widgets_df.loc["gravel_price_per_ton"].iloc[0])  * ( st.session_state.concrete_widgets_df.loc["selected_Gravel_Qty"].iloc[0] )
     site_prep_cost = round(jcb_cost + gravel_cost)
@@ -68,10 +69,56 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
     else:
         masonary_spec = pd.DataFrame().to_html()   
 
-    st.html(f"""
+    @st.dialog("Download your BOQ")
+    def docDownload():
+        timestr = time.strftime("%d%m%Y-%H%M%S")
+        if "boq_file_name" not in st.session_state:
+            st.session_state.boq_file_name = f"{timestr}.docx"
+        col1, col2 = st.columns(2)
+        # Create a Document object
+        document = Document()
+        # Add a section to the document
+        section = document.AddSection()
+
+        # Set the page margins to 72 points (72 points = 1 inch)
+        section.PageSetup.Margins.All = 72
+
+        # Add a paragraph to the section
+        paragraph = section.AddParagraph()
+
+        # Add the HTML string to the paragraph
+        paragraph.AppendHTML(boq_html)
+
+        # Save the result document to a DOCX file
+        document.SaveToFile(st.session_state.boq_file_name, FileFormat.Docx2016)
+        # Or save the result document to a DOC file
+        # document.SaveToFile("HtmlStringToDoc.doc", FileFormat.Doc)
+        document.Close()    
+        # href = f"""
+        # <a style="border-radius: 8px;color:black;background-color: #E2C27B;padding: 8px 25px;text-align: center;text-decoration: none;display: inline-block;" href="{st.session_state.boq_file_name}" download="{st.session_state.boq_file_name}">Download DOCX File</a>
+        # """
+        # col1.markdown(href, unsafe_allow_html=True) 
+        with open(st.session_state.boq_file_name, 'rb') as f:
+            col1.download_button('Download as word file', f, file_name=st.session_state.boq_file_name)   
+        st.divider()   
+        st.text(""" 
+                If you like to support me, 
+                scan the UPI QR code below. 
+                Every contribution, big or small, 
+                helps me cover maintenance costs.""")
+
+        st.image("modules/about_me/images/My_QR_Code.jpeg", width=300)
+              
+        if col2.button("Close", type="primary"):
+            os.remove(st.session_state.boq_file_name)
+            del st.session_state.boq_file_name
+            st.rerun()
+
+    boq_html = f"""
     <!DOCTYPE html>
     <html lang="en">
     <head>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>BOQ Report</title>
@@ -176,7 +223,8 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
                 </tr>
             </tbody>
         </table>
-
+<p style="page-break-after: always;">&nbsp;</p>
+<p style="page-break-before: always;">&nbsp;</p>
                <h5>Summary of Quantities</h5>
         <table>
             <thead>
@@ -243,14 +291,30 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
             <li>Quantities are based on estimated measurements; actual quantities may vary.</li>
             <li>Prices are subject to change based on material cost fluctuations and project site conditions.</li>
         </ul>
+              <script type="text/javascript">
+         const handlePrint = () => {{
+            var actContents = document.body.innerHTML;
+            document.body.innerHTML = actContents;
+            window.print();
+         }}
+      </script>
+    
+
     </body>
-    </html>
+    </html>"""
 
+    if st.button("Download",type="primary", key="boq_download_btn_top"):
+        docDownload()
+    # with open("C:\\work\\Streamlit_Code\\Streamlit\\modules\\civil_boq\\text.html", "w") as text_file:
+    #         text_file.write(boq_html)     
+    st.html(boq_html)      
 
-            """)
+    if st.button("Download",type="primary"):
+        docDownload()
 
 else:
     st.subheader("Your report is not yet ready. ")
     st.write("Click the below button to complte the details.")
     if st.button("Generate Now!", type="primary", key="generate_btn_page_start"):
         st.switch_page("modules/civil_boq/pages/boq_page.py")
+    
