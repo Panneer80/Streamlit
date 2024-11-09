@@ -20,14 +20,14 @@ st.html(
     </section>
 
 """)
-st.html("""
-    <h2>Watch Our Tutorial on BOQ Generation</h2>
-    <p>Learn more about how to create a Bill of Quantities quickly and accurately by watching our tutorial video below:</p>
-""") 
+# st.html("""
+#     <h2>Watch Our Tutorial on BOQ Generation</h2>
+#     <p>Learn more about how to create a Bill of Quantities quickly and accurately by watching our tutorial video below:</p>
+# """) 
 
-VIDEO_URL = "https://youtu.be/M4xtXdg_ibU"
-container, _, _  = st.columns(3)
-container.video(data=VIDEO_URL)
+# VIDEO_URL = "https://youtu.be/M4xtXdg_ibU"
+# container, _, _  = st.columns(3)
+# container.video(data=VIDEO_URL)
 
 st.html("""
     <section>
