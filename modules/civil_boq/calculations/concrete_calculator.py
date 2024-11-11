@@ -185,6 +185,7 @@ def concrete_calculator():
         if "concrete_work_df" in st.session_state:
             # print(st.session_state.concrete_work_df)
             concreate_df = st.session_state.concrete_work_df
+            concreate_df.fillna(0,inplace=True)
             m20_mask = concreate_df["Grade"] == "M20"
             m25_mask = concreate_df["Grade"] == "M25"        
             m20_concrete_df = concreate_df[m20_mask]
@@ -198,10 +199,10 @@ def concrete_calculator():
                 m25_c_bags = amount_of_cement(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)
                 m25_sand_ton = amount_of_sand(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)
                 m25_aggre_ton = amount_of_aggregate(wet_volume=m25_wet_volume, cement=1, sand=1, aggregate=2)   
-            print(m20_wet_volume)
-            print(m20_c_bags)  
-            print(m20_sand_ton)
-            print(m20_aggre_ton)
+            # print(m20_wet_volume)
+            # print(m20_c_bags)  
+            # print(m20_sand_ton)
+            # print(m20_aggre_ton)
             total_c_bags = round(float(m20_c_bags + m25_c_bags),2)
             total_sand_ton = round(float(m20_sand_ton + m25_sand_ton),2)
             total_aggre_ton = round(float(m20_aggre_ton + m25_aggre_ton  ),2)

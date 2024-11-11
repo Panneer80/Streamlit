@@ -68,6 +68,6 @@ def masonary_work():
                         required=True,          ),                          
                                                                
                     },)
-                    if masonary_from.form_submit_button(label="Save "):
+                    if masonary_from.form_submit_button(label="Save", type="primary"):
                         st.session_state["masonary_work_df"] = masonary_work_df 
                         st.toast("Done!", icon="👍")

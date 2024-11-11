@@ -38,4 +38,4 @@ def set_price():
                 gravel_price_per_ton = st.number_input("Gravel / Ton", min_value=1000, max_value=100000, step=500, key="gravel_price_per_ton")
                 jcb_work_per_hour = st.number_input("JCB Earth work / Hour", min_value=1000, max_value=100000, step=500, key="jcb_work_per_hour")
             store_values(False)
-            price_from.form_submit_button(label="Set Price", on_click=store_values, type="secondary")
+            price_from.form_submit_button(label="Set Price", on_click=store_values, type="primary")

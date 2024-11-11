@@ -63,6 +63,6 @@ def tiles_work():
                 tiles_work_df = tiles_work_form.data_editor(final_df, use_container_width=True)
 
                 # store_edited_df()
-                if tiles_work_form.form_submit_button(label="Save"):
+                if tiles_work_form.form_submit_button(label="Save", type="primary"):
                         st.session_state["tiles_work_df"] = tiles_work_df 
                         st.toast("Done!", icon="👍")

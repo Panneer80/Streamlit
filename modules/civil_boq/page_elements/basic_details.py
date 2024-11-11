@@ -31,6 +31,6 @@ def basic_details():
     with col3:
         st.number_input(label="Builtup Area (Sq.ft)",  min_value=100, max_value=100000, step=100, key="builtup_area")
 
-    basic_form.form_submit_button(label="Save", on_click=store_values)
+    basic_form.form_submit_button(label="Save", on_click=store_values, type="primary")
 
     

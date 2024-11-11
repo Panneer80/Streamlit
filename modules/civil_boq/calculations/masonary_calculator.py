@@ -4,6 +4,7 @@ import pandas as pd
 def masonary_calculator():
     if "masonary_work_df" in st.session_state:
         df = st.session_state.masonary_work_df
+        df.fillna(0, inplace=True)
         # df.to_csv("C:\\work\\Streamlit_Code\\Streamlit\\test.csv")
         # iterate all rows
         masonary_cement_bags = []

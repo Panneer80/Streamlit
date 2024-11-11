@@ -22,7 +22,7 @@ def concrete_work():
                      st.session_state[item] = st.session_state.concrete_widgets_df.loc[item]["Value"]
 
             def store_edited_df():  
-                st.session_state.concrete_work_df = concrete_work_df 
+                st.session_state.concrete_work_df = concrete_work_df
  
 
             if "concrete_widgets_df" in st.session_state:
@@ -51,7 +51,7 @@ def concrete_work():
             if selected_Footing_count | selected_Column_count | selected_Beam_count | selected_Wall_Footing_count | selected_Floor_Slab_count | selected_Stairs_count > 0:
                     final_df = pd.concat([footing_df,column_df,beam_df,wall_footing_df,floor_slab_df,stairs_df],ignore_index=True)
                     final_df.set_index("Item",inplace=True)
-                    concrete_work_df = concrete_from.data_editor(final_df, use_container_width=True, column_config={
+                    concrete_work_df = concrete_from.data_editor(final_df , use_container_width=True, column_config={
                     "Rod size": st.column_config.SelectboxColumn(
                         "Rod size",
                         help="select rod size",
@@ -64,7 +64,7 @@ def concrete_work():
                         "Rod count",
                         help="select rod count",
                         width="medium",
-                        options=[ "4","6","8", "10","12","14","18","20","2 + 4", "4 + 4", "4 + 6", "5 + 5","6 + 6", "8 + 8", "9 + 9", "10 + 10"],
+                        options=[ "4","6","8", "10","12","14","18","20","40","60","80","100","200","300","400","500","2 + 4", "4 + 4", "4 + 6", "5 + 5","6 + 6", "8 + 8", "9 + 9", "10 + 10", "50 + 50", "75 + 75"],
                         required=True,            ),      
                     "Ring size": st.column_config.SelectboxColumn(
                         "Ring size (optional)",
@@ -81,7 +81,7 @@ def concrete_work():
                     },)
                     # st.session_state.concrete_work_df = concrete_work_df
 
-                    if concrete_from.form_submit_button(label="Save"):
+                    if concrete_from.form_submit_button(label="Save", type="primary"):
                         store_edited_df()
                         st.toast("Done!", icon="👍")
 

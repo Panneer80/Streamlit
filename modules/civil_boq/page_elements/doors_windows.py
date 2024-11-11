@@ -63,7 +63,7 @@ def door_window_work():
                             required=True,            ),      
                         
                     },)
-            if door_window_form.form_submit_button(label="Save "):
+            if door_window_form.form_submit_button(label="Save", type="primary"):
                 store_doors_edited_df()        
                 st.toast("Done!", icon="👍")
   

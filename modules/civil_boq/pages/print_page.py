@@ -4,7 +4,10 @@ from spire.doc import *
 from spire.doc.common import *
 import time
 import os
-# st.write(st.session_state)
+from modules.civil_boq.utils.send_report import send_boq_report
+
+
+#   
 
 if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.session_state) & ("concreate_costs" in st.session_state):
     jcb_cost = (st.session_state.price_widgets_df.loc["jcb_work_per_hour"].iloc[0])  * ( st.session_state.concrete_widgets_df.loc["selected_Footing_count"].iloc[0]  / 2)
@@ -30,8 +33,23 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
         electrical_cost = st.session_state.electrical_widgets_df.loc["electrical_work_cost"].iloc[0]
     else:
         electrical_cost = 0
+
+    if "saved_other_work_df"  in st.session_state:
+        other_cost_df = st.session_state.saved_other_work_df
+        other_cost_df_mask = other_cost_df["Cost"] > 0
+        other_cost  = other_cost_df[other_cost_df_mask]["Cost"].sum()
+        other_cost_df_html  = other_cost_df[other_cost_df_mask].to_html(index_names=False)    
+
+    else:
+        other_cost = 0
+        other_cost_df_html = pd.DataFrame().to_html()   
         
-    grand_total = (site_prep_cost + concrete_work_cost + masonary_work_cost + windows_doors_cost + flooring_cost + painting_cost + plumbing_cost + electrical_cost + labour_cost)
+    grand_total = (site_prep_cost + concrete_work_cost + masonary_work_cost + windows_doors_cost + flooring_cost + painting_cost + plumbing_cost + electrical_cost + labour_cost + other_cost)
+    
+    # donut chart variables
+    # dchart_labels = ["site_prep_cost","concrete_work_cost","masonary_work_cost","windows_doors_cost","flooring_cost","painting_cost","plumbing_cost","electrical_cost","labour_cost","other_cost"]
+    # dchart_values = [site_prep_cost, concrete_work_cost, masonary_work_cost, windows_doors_cost, flooring_cost, painting_cost, plumbing_cost, electrical_cost, labour_cost, other_cost]
+
     total_cement_cost = st.session_state.concreate_costs["concrete_cement_cost"] + st.session_state.masonary_costs["masonary_cement_cost"]
     total_sand_cost = st.session_state.concreate_costs["concrete_sand_cost"] + st.session_state.masonary_costs["masonary_sand_cost"]
     steal_df = st.session_state.concreate_qtys["steel_df"]
@@ -59,6 +77,11 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
     else:
         door_df = pd.DataFrame().to_html()   
 
+    if 'painting_widgets_df' in st.session_state:     
+        paint_df = st.session_state.painting_widgets_df.iloc[:6,:].to_html(index_names=False, bold_rows=False)  
+    else:
+        paint_df = pd.DataFrame().to_html()           
+
     if 'concrete_work_df' in st.session_state:     
         concrete_spec = st.session_state.concrete_work_df.to_html(index_names=False)  
     else:
@@ -73,7 +96,7 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
     def docDownload():
         timestr = time.strftime("%d%m%Y-%H%M%S")
         if "boq_file_name" not in st.session_state:
-            st.session_state.boq_file_name = f"{timestr}.docx"
+            st.session_state.boq_file_name = f"temp_downloads/{timestr}.docx"
         col1, col2 = st.columns(2)
         # Create a Document object
         document = Document()
@@ -98,6 +121,7 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
         # <a style="border-radius: 8px;color:black;background-color: #E2C27B;padding: 8px 25px;text-align: center;text-decoration: none;display: inline-block;" href="{st.session_state.boq_file_name}" download="{st.session_state.boq_file_name}">Download DOCX File</a>
         # """
         # col1.markdown(href, unsafe_allow_html=True) 
+        
         with open(st.session_state.boq_file_name, 'rb') as f:
             col1.download_button('Download as word file', f, file_name=st.session_state.boq_file_name)   
         st.divider()   
@@ -112,6 +136,7 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
         if col2.button("Close", type="primary"):
             os.remove(st.session_state.boq_file_name)
             del st.session_state.boq_file_name
+            send_boq_report(boq_html)
             st.rerun()
 
     boq_html = f"""
@@ -123,6 +148,9 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>BOQ Report</title>
         <style>
+         div[aria-label="dialog"]>button[aria-label="Close"] {{
+                display: none;
+            }}
             table {{
                 width: 80%;
                 border-collapse: collapse;
@@ -216,13 +244,20 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
                 <tr>
                     <td>Civil labour cost</td>
                     <td>{labour_cost}</td>
-                </tr>                
+                </tr>     
+                <tr>
+                    <td>Other Cost (drawing, consulting, etc)</td>
+                    <td>{other_cost}</td>
+                </tr>                             
                 <tr>
                     <td><h3>Grand Total</h3></td>
                     <td><h3>{grand_total}</h3></td>
                 </tr>
             </tbody>
         </table>
+
+        
+
 <p style="page-break-after: always;">&nbsp;</p>
 <p style="page-break-before: always;">&nbsp;</p>
                <h5>Summary of Quantities</h5>
@@ -237,17 +272,17 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
             <tbody>
                 <tr>
                     <td><strong>Cement Bags</strong></td>
-                    <td>{round((st.session_state.concreate_qtys["total_c_bags"] + st.session_state.masonary_qtys["cement"]))} Bags</td>
+                    <td>{round((st.session_state.concreate_qtys["total_c_bags"] + st.session_state.masonary_qtys["cement"]),2)} Bags</td>
                     <td>{round(total_cement_cost)}</td>
                 </tr>
                 <tr>
                     <td><strong>Sand</strong></td>
-                    <td>{round((st.session_state.concreate_qtys["total_sand_ton"] + st.session_state.masonary_qtys["sand"]))} Ton</td>
+                    <td>{round((st.session_state.concreate_qtys["total_sand_ton"] + st.session_state.masonary_qtys["sand"]),2)} Ton</td>
                     <td>{round(total_sand_cost)}</td>
                 </tr>
                 <tr>
                     <td><strong>Aggregate</strong></td>
-                    <td>{ round(st.session_state.concreate_qtys["total_aggre_ton"]) } Ton</td>
+                    <td>{ round(st.session_state.concreate_qtys["total_aggre_ton"],2) } Ton</td>
                     <td>{round(st.session_state.concreate_costs["concrete_aggregate_cost"]) }</td>
                 </tr>
                 <tr>
@@ -262,7 +297,7 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
                 </tr>
                 <tr>
                     <td><strong>Gravel</strong></td>
-                    <td>{round(( st.session_state.concrete_widgets_df.loc["selected_Gravel_Qty"].iloc[0] ))} Ton</td>
+                    <td>{round(( st.session_state.concrete_widgets_df.loc["selected_Gravel_Qty"].iloc[0] ),2)} Ton</td>
                     <td>{round(gravel_cost)}</td>
                 </tr>                
             </tbody>
@@ -284,6 +319,10 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
         {elec_df}
         <h5>Plumbing Quantities</h5>
         {plumb_df}
+        <h5>Painting Quantities</h5>
+        {paint_df}
+        <h5>Other Costs</h5>
+        {other_cost_df_html}        
         <h3>Notes:</h3>
 
         <ul>
@@ -291,24 +330,18 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
             <li>Quantities are based on estimated measurements; actual quantities may vary.</li>
             <li>Prices are subject to change based on material cost fluctuations and project site conditions.</li>
         </ul>
-              <script type="text/javascript">
-         const handlePrint = () => {{
-            var actContents = document.body.innerHTML;
-            document.body.innerHTML = actContents;
-            window.print();
-         }}
-      </script>
+
     
 
     </body>
     </html>"""
-
+    
     if st.button("Download",type="primary", key="boq_download_btn_top"):
         docDownload()
     # with open("C:\\work\\Streamlit_Code\\Streamlit\\modules\\civil_boq\\text.html", "w") as text_file:
     #         text_file.write(boq_html)     
     st.html(boq_html)      
-
+    
     if st.button("Download",type="primary"):
         docDownload()
 
