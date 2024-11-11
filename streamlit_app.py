@@ -90,9 +90,17 @@ def main():
         default=False
     )
 
+    formulas = st.Page(
+        "modules/civil_boq/pages/formulas.py",
+        title="Formulas",
+        icon=":material/calculate:",
+        url_path="formulas", 
+        default=False
+    )    
+
     page_dict = {}
 
-    page_dict["BOQ Generator"] = [welcome_page,boq_generator,print_pdf,your_boqs]
+    page_dict["BOQ Generator"] = [welcome_page,boq_generator,print_pdf,your_boqs,formulas]
     page_dict["Contact Us"] = [about_me, feedback]
     # if ("generate_pressed" in st.session_state):
     # page_dict["BOQ Generator"] +=  [print_pdf ]
