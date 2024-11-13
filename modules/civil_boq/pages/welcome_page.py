@@ -3,8 +3,11 @@ import streamlit as st
 
 st.header("Welcome to BOQ Generator")
 st.markdown("##### Your Fast-Track Solution to Accurate Construction Estimates")
-if st.button("Generate Now!", type="primary", key="generate_btn_page_start"):
+col1, col2,col3,col4 = st.columns(4)
+if col1.button("Generate Now!", type="primary", key="generate_btn_page_start"):
     st.switch_page("modules/civil_boq/pages/boq_page.py")
+if col2.button('See a sample report!', type="secondary", key="sample_btn_page_start"):
+    st.switch_page("modules/civil_boq/pages/sample_report.py")
 
 st.html(
 """
@@ -52,6 +55,8 @@ st.html("""
     </section> 
     """
 )
-
-if st.button("Generate Now!", type="primary", key="generate_btn_page_end"):
+bcol1, bcol2,bcol3,bcol4 = st.columns(4)
+if bcol1.button("Generate Now!", type="primary", key="generate_btn_page_end"):
     st.switch_page("modules/civil_boq/pages/boq_page.py")
+if bcol2.button('See a sample report!', type="secondary", key="sample_btn_page_end"):
+    st.switch_page("modules/civil_boq/pages/sample_report.py")

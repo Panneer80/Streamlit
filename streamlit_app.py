@@ -1,5 +1,6 @@
 import streamlit as st
 
+     
 st.set_page_config(page_title="Civil BOQ", 
                    page_icon="🐺",
                    initial_sidebar_state='auto',
@@ -39,6 +40,8 @@ def main():
                 st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     local_css("modules/civil_boq/css/style.css")
 
+    # with st.sidebar:
+    #     st.logo(image="modules/civil_boq/images/wolf_1f43a.png")
 
     welcome_page = st.Page(
         "modules/civil_boq/pages/welcome_page.py",
@@ -98,9 +101,16 @@ def main():
         default=False
     )    
 
+    sample_report = st.Page(
+        "modules/civil_boq/pages/sample_report.py",
+        title="Sample Report",
+        icon=":material/summarize:",
+        url_path="sample_report", 
+        default=False
+    )    
     page_dict = {}
 
-    page_dict["BOQ Generator"] = [welcome_page,boq_generator,print_pdf,your_boqs,formulas]
+    page_dict["BOQ Generator"] = [welcome_page,boq_generator,print_pdf,your_boqs,formulas, sample_report]
     page_dict["Contact Us"] = [about_me, feedback]
     # if ("generate_pressed" in st.session_state):
     # page_dict["BOQ Generator"] +=  [print_pdf ]
