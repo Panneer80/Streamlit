@@ -40,8 +40,8 @@ def main():
                 st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     local_css("modules/civil_boq/css/style.css")
 
-    # with st.sidebar:
-    #     st.logo(image="modules/civil_boq/images/wolf_1f43a.png")
+    with st.sidebar:
+        st.logo(image="modules/civil_boq/images/fox_logo_img.png",icon_image="modules/civil_boq/images/fox_icon_img.png")
 
     welcome_page = st.Page(
         "modules/civil_boq/pages/welcome_page.py",

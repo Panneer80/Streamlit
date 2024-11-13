@@ -8,10 +8,10 @@ st.divider()
 email_sender = "vr80aliens@gmail.com"
 email_receiver = "panneer80@gmail.com"
 subject = "BOQ - Feedback"
-body = st.text_area('Your feedback helps me improve and bring you the content you want to see.')
+body = st.text_area('Your feedback helps me improve and bring you the content you want to see.', placeholder="type here..")
 password = st.secrets["smtp_password"]
 
-if st.button("Send Email"):
+if st.button("Send Feedback"):
     try:
         msg = MIMEText(body)
         msg['From'] = email_sender

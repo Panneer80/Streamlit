@@ -12,6 +12,7 @@ st.text("""
         developing REST APIs, automating tasks with tools like Ansible, and working with 
         various databases including MSSQL, PostgreSQL, and MySQL. Successfully completed 
         over 70 task automations, providing technical leadership in complex projects.""")
+st.markdown("###### Email: panneer80@gmail.com")
 st.divider()
 st.markdown("###### Support me")
 st.text(""" 
@@ -20,6 +21,7 @@ st.text("""
 
 st.image("modules/about_me/images/My_QR_Code.jpeg", width=400)
 st.divider()
+
+
+st.image("modules/civil_boq/images/fox_icon_img.png",width=50)
 st.markdown("###### Thank You!")
-# st.markdown("###### Check my projects:")
-# st.page_link(label='Task Manager',page='modules/task_manager/task_manager.py',icon=":material/task:")   
