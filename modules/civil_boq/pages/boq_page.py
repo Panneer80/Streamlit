@@ -15,6 +15,7 @@ from modules.civil_boq.page_elements.tiles_work import tiles_work
 from modules.civil_boq.page_elements.basic_details import basic_details
 from modules.civil_boq.calculations.concrete_calculator import concrete_calculator
 
+
 st.header("BOQ Generator")
 # st.write(st.session_state)
 st.divider()

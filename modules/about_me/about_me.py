@@ -25,3 +25,5 @@ st.divider()
 
 st.image("modules/civil_boq/images/fox_icon_img.png",width=50)
 st.markdown("###### Thank You!")
+st.divider()
+# st.text(st.session_state["visitor_count"])

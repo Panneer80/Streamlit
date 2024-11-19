@@ -1,18 +1,21 @@
 import streamlit as st
 
+# from modules.civil_boq.utils.db_connection import increment_counter
 
-st.header("Welcome to BOQ Generator")
+
+st.header("Welcome to Building Cost Estimator 👷")
 st.markdown("##### Your Fast-Track Solution to Accurate Construction Estimates")
 col1, col2,col3,col4 = st.columns(4)
-if col1.button("Generate Now!", type="primary", key="generate_btn_page_start"):
+if col1.button("Estimate Now!", type="primary", key="generate_btn_page_start"):
     st.switch_page("modules/civil_boq/pages/boq_page.py")
+    # increment_counter()
 if col2.button('See a sample report!', type="secondary", key="sample_btn_page_start"):
     st.switch_page("modules/civil_boq/pages/sample_report.py")
-
+    # increment_counter()
 st.html(
 """
     <section>
-        <h2>What is a BOQ?</h2>
+        <h2>Estimate Cost and Qunatity 💰</h2>
         <p>A Bill of Quantities (BOQ) is a comprehensive document that lists all the materials, labor, and other costs required for a construction project. It breaks down every element, from building materials like concrete and steel to the finishing touches like paint and fixtures. A well-prepared BOQ helps to:</p>
         <ul>
             <li><strong>Accurately Estimate Costs:</strong> Know exactly how much your project will cost before starting.</li>
@@ -24,7 +27,7 @@ st.html(
 
 """)
 st.html("""
-    <h2>Watch Our Video on BOQ Generation</h2>
+    <h2>Watch Our Demo Video</h2>
     <p>Learn more about how to create a Bill of Quantities quickly and accurately by watching our tutorial video below:</p>
 """) 
 
@@ -34,8 +37,8 @@ container.video(data=VIDEO_URL)
 
 st.html("""
     <section>
-        <h2>Why Use BOQ Generator?</h2>
-        <p>Creating a BOQ manually can be time-consuming, complex, and prone to errors. With our BOQ Generator, you can:</p>
+        <h2>Why Choose Us?</h2>
+        <p>Creating an estimate manually can be time-consuming, complex, and prone to errors. With our BOQ Generator, you can:</p>
         <ul>
             <li><strong>Quickly Generate Detailed BOQs:</strong> Our tool allows you to enter project details and specifications, then automatically calculates material quantities and costs based on standard rates.</li>
             <li><strong>Customize Your Estimates:</strong> Adjust quantities, add items, or modify unit costs to reflect the specifics of your project.</li>
@@ -56,7 +59,9 @@ st.html("""
     """
 )
 bcol1, bcol2,bcol3,bcol4 = st.columns(4)
-if bcol1.button("Generate Now!", type="primary", key="generate_btn_page_end"):
+if bcol1.button("Estimate Now!", type="primary", key="generate_btn_page_end"):
     st.switch_page("modules/civil_boq/pages/boq_page.py")
+    # increment_counter()
 if bcol2.button('See a sample report!', type="secondary", key="sample_btn_page_end"):
     st.switch_page("modules/civil_boq/pages/sample_report.py")
+    # increment_counter()

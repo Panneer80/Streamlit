@@ -54,7 +54,7 @@ def main():
 
     boq_generator = st.Page(
         "modules/civil_boq/pages/boq_page.py",
-        title="Generate BOQ",
+        title="Estimate Now",
         icon=":material/task:",
         url_path="boq",
         default=False

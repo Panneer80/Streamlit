@@ -20,10 +20,10 @@ st.subheader("WORK IN PROGRESS!")
 #     #s.execute('DELETE FROM pet_owners;')
 #     #task_data = {'jerry': 'fish', 'barbara': 'cat', 'alex': 'puppy'}
 #     for k in list_data:
-#         s.execute(
-#             text('INSERT INTO task_main (Title, Description,Assigned_To,Status ) VALUES (:title, :description, :assignedto, :status);'),
-#             params=dict(title=k['title'], description=k['description'], assignedto=k['assigned to'], status='new')
-#         )
+        # s.execute(
+        #     text('INSERT INTO task_main (Title, Description,Assigned_To,Status ) VALUES (:title, :description, :assignedto, :status);'),
+        #     params=dict(title=k['title'], description=k['description'], assignedto=k['assigned to'], status='new')
+        # )
 #     s.commit()
 
 # # Query and display the data you inserted
