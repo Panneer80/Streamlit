@@ -1,7 +1,7 @@
 import streamlit as st
 from inject_gadd_script import inject_ga
 
-inject_ga()
+# inject_ga()
 st.set_page_config(page_title="Civil BOQ", 
                    page_icon="🐺",
                    initial_sidebar_state='auto',
