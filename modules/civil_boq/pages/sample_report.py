@@ -32,7 +32,7 @@ st.html("""
         </style>
     </head>
     <body> 
-        <h2>Bill Of Quantities</h2>
+        <h2>Building Cost and Quantities Report</h2>
          <table id="basic_data">
             <tbody>
                 <tr>

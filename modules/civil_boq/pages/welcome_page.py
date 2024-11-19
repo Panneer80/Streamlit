@@ -15,7 +15,7 @@ if col2.button('See a sample report!', type="secondary", key="sample_btn_page_st
 st.html(
 """
     <section>
-        <h2>Estimate Cost and Qunatity 💰</h2>
+        <h2>Estimate Cost and Quantity 💰</h2>
         <p>A Bill of Quantities (BOQ) is a comprehensive document that lists all the materials, labor, and other costs required for a construction project. It breaks down every element, from building materials like concrete and steel to the finishing touches like paint and fixtures. A well-prepared BOQ helps to:</p>
         <ul>
             <li><strong>Accurately Estimate Costs:</strong> Know exactly how much your project will cost before starting.</li>

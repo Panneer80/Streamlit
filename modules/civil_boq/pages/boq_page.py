@@ -16,7 +16,7 @@ from modules.civil_boq.page_elements.basic_details import basic_details
 from modules.civil_boq.calculations.concrete_calculator import concrete_calculator
 
 
-st.header("BOQ Generator")
+st.header("Enter Your Data: ")
 # st.write(st.session_state)
 st.divider()
 basic_details()
@@ -34,7 +34,7 @@ st.divider()
 generate, print, clear, finalize = st.columns(4)
 
 
-if st.button("Generate BOQ", type="primary", key="generate_btn_poq_page_end"):
+if st.button("Generate Report", type="primary", key="generate_btn_poq_page_end"):
     concrete_calculator()
     masonary_calculator()  
     tiles_cost_calculator()

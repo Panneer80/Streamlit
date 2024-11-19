@@ -171,7 +171,7 @@ if ("basic_details_df" in st.session_state) & ("concrete_widgets_df" in st.sessi
     <body> 
           
             
-        <h2>Bill Of Quantities</h2>
+        <h3>Building Cost and Quantities Report</h3>
          <table id="basic_data">
             <tbody>
                 <tr>
